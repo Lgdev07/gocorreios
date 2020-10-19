@@ -1,5 +1,5 @@
 <h1 align="center">
-      <img alt="go-correios" title="go-correios" src=".github/logo.png" width="300px" />
+      <img alt="gocorreios" title="gocorreios" src=".github/logo.png" width="300px" />
 </h1>
 
 <h3 align="center">
@@ -10,14 +10,14 @@
 <p align="center">Made with Golang 🚀</p>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Lgdev07/go-correios?color=%2304D361">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Lgdev07/gocorreios?color=%2304D361">
 
   <img alt="Made by Lgdev07" src="https://img.shields.io/badge/made%20by-Lgdev07-%2304D361">
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 
-  <a href="https://github.com/Lgdev07/go-correios/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/Lgdev07/go-correios?style=social">
+  <a href="https://github.com/Lgdev07/gocorreios/stargazers">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/Lgdev07/gocorreios?style=social">
   </a>
 </p>
 
@@ -42,11 +42,11 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Lgdev07/go-correios/tracking"
+	"github.com/Lgdev07/gocorreios"
 )
 
 func main() {
-	result, err := tracking.Tracking([]string{"OK816158697BR"})
+	result, err := gocorreios.Tracking([]string{"OK816158697BR"})
 	if err != nil {
 		log.Fatal(err)
 	}

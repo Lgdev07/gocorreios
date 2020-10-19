@@ -1,4 +1,4 @@
-module github.com/Lgdev07/go-correios
+module github.com/Lgdev07/gocorreios
 
 go 1.14
 

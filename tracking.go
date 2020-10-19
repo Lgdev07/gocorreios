@@ -1,4 +1,4 @@
-package tracking
+package gocorreios
 
 import (
 	"bytes"
