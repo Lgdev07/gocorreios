@@ -6,7 +6,7 @@
   Go Correios
 </h3>
 
-<p align="center">Integration with Correios Web Services✉️</p>
+<p align="center">Integration with Correios Web Services ✉️</p>
 <p align="center">Made with Golang 🚀</p>
 
 <p align="center">
@@ -33,7 +33,7 @@
 - [ ] Fare Calculation
 
 ## 🚀 How to Use
-## Tracking
+### Tracking
 
 ```go
 package main
