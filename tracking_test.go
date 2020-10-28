@@ -34,7 +34,7 @@ func TestTracking(t *testing.T) {
 		t.Errorf("Error while getting Tracking: %v", err)
 	}
 
-	responseInterface := []map[string]interface{}{}
+	var responseInterface []map[string]interface{}
 	err = json.Unmarshal(response, &responseInterface)
 	if err != nil {
 		t.Errorf("Cannot convert to json: %v", err)
@@ -42,9 +42,11 @@ func TestTracking(t *testing.T) {
 
 	assert.Equal(t, len(responseInterface), 1)
 	assert.Equal(t, responseInterface[0]["number"], codeNumber)
-	assert.Contains(t, responseInterface[0], "last_date")
 	assert.Contains(t, responseInterface[0], "category")
+	assert.Contains(t, responseInterface[0], "last_date")
+	assert.Contains(t, responseInterface[0], "last_type")
 	assert.Contains(t, responseInterface[0], "last_status")
+	assert.Contains(t, responseInterface[0], "last_description")
 	assert.Contains(t, responseInterface[0], "last_detail")
 	assert.Contains(t, responseInterface[0], "last_origin")
 	assert.Contains(t, responseInterface[0], "last_destination")
@@ -57,7 +59,7 @@ func TestTrackingNotExist(t *testing.T) {
 		t.Errorf("Error while getting Tracking: %v", err)
 	}
 
-	responseInterface := []map[string]interface{}{}
+	var responseInterface []map[string]interface{}
 	err = json.Unmarshal(response, &responseInterface)
 	if err != nil {
 		t.Errorf("Cannot convert to json: %v", err)
@@ -73,7 +75,7 @@ func TestTrackingMultipleObjects(t *testing.T) {
 		t.Errorf("Error while getting Tracking: %v", err)
 	}
 
-	responseInterface := []map[string]interface{}{}
+	var responseInterface []map[string]interface{}
 	err = json.Unmarshal(response, &responseInterface)
 	if err != nil {
 		t.Errorf("Cannot convert to json: %v", err)
