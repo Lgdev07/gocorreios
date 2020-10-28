@@ -64,98 +64,126 @@ Expected result:
         "number": "OK816158697BR",
         "category": "SEDEX",
         "last_date": "05/10/2020 - 09:09",
-        "last_status": "Objeto entregue ao remetente",
+        "last_type": "BDE",
+        "last_status": 23,
+        "last_description": "Objeto entregue ao remetente",
         "last_detail": "",
         "last_origin": "CDD CARIACICA - RUA SAO FRANCISCO, 53, SAO FRANCISCO - VIANA/ES",
         "last_destination": "",
         "history": [
             {
                 "date": "05/10/2020 - 06:37",
-                "status": "Objeto saiu para entrega ao remetente",
+                "type": "OEC",
+                "status": 9,
+                "description": "Objeto saiu para entrega ao remetente",
                 "detail": "",
                 "origin": "CDD CARIACICA - RUA SAO FRANCISCO, 53, SAO FRANCISCO - VIANA/ES",
                 "destination": ""
             },
             {
                 "date": "01/10/2020 - 22:07",
-                "status": "Objeto encaminhado ",
+                "type": "DO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CTE BENFICA - RUA LEOPOLDO BULHOES, 530, BENFICA - RIO DE JANEIRO/RJ",
                 "destination": "CDD CARIACICA - RUA SAO FRANCISCO, 53, SAO FRANCISCO - VIANA/ES"
             },
             {
                 "date": "30/09/2020 - 11:03",
-                "status": "Objeto encaminhado ",
+                "type": "RO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CEE CAMPOS DOS GOYTACAZES - RUA ROCHA LEAO, 120, PARQUE CAJU - CAMPOS DOS GOYTACAZES/RJ",
                 "destination": "CTE BENFICA - RUA LEOPOLDO BULHOES, 530, BENFICA - RIO DE JANEIRO/RJ"
             },
             {
                 "date": "30/09/2020 - 11:02",
-                "status": "Objeto mal encaminhado",
+                "type": "FC",
+                "status": 3,
+                "description": "Objeto mal encaminhado",
                 "detail": "Encaminhamento a ser corrigido",
                 "origin": "CEE CAMPOS DOS GOYTACAZES - RUA ROCHA LEAO, 120, PARQUE CAJU - CAMPOS DOS GOYTACAZES/RJ",
                 "destination": ""
             },
             {
                 "date": "29/09/2020 - 18:06",
-                "status": "Objeto encaminhado ",
+                "type": "DO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CTE BENFICA - RUA LEOPOLDO BULHOES, 530, BENFICA - RIO DE JANEIRO/RJ",
                 "destination": "CEE CAMPOS DOS GOYTACAZES - RUA ROCHA LEAO, 120, PARQUE CAJU - CAMPOS DOS GOYTACAZES/RJ"
             },
             {
                 "date": "28/09/2020 - 21:03",
-                "status": "Objeto encaminhado ",
+                "type": "DO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CTE SAUDE - RUA DO BOQUEIRAO, 320, SAUDE - SAO PAULO/SP",
                 "destination": "CTE BENFICA - RUA LEOPOLDO BULHOES, 530, BENFICA - RIO DE JANEIRO/RJ"
             },
             {
                 "date": "28/09/2020 - 14:53",
-                "status": "Objeto encaminhado ",
+                "type": "RO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CDD PIRAPORINHA - RUA ANTONIO DIAS ADORNO, 236/240, VILA NOGUEIRA - Diadema/SP",
                 "destination": "CTE SAUDE - RUA DO BOQUEIRAO, 320, SAUDE - SAO PAULO/SP"
             },
             {
                 "date": "26/09/2020 - 09:56",
-                "status": "Destinatário não retirou objeto no prazo",
+                "type": "BDI",
+                "status": 26,
+                "description": "Destinatário não retirou objeto no prazo",
                 "detail": "Objeto será devolvido ao remetente",
                 "origin": "CDD PIRAPORINHA - RUA ANTONIO DIAS ADORNO, 236/240, VILA NOGUEIRA - Diadema/SP",
                 "destination": ""
             },
             {
                 "date": "18/09/2020 - 09:42",
-                "status": "Objeto aguardando retirada no endereço indicado",
+                "type": "LDI",
+                "status": 1,
+                "description": "Objeto aguardando retirada no endereço indicado",
                 "detail": "Para retirá-lo, é preciso informar o código do objeto e apresentar documentação que comprove ser o destinatário ou pessoa por ele oficialmente autorizada.",
                 "origin": "CDD PIRAPORINHA - RUA ANTONIO DIAS ADORNO, 236/240, VILA NOGUEIRA - Diadema/SP",
                 "destination": ""
             },
             {
                 "date": "16/09/2020 - 20:57",
-                "status": "Objeto encaminhado ",
+                "type": "DO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CTE SAUDE - RUA DO BOQUEIRAO, 320, SAUDE - SAO PAULO/SP",
                 "destination": "CDD PIRAPORINHA - RUA ANTONIO DIAS ADORNO, 236/240, VILA NOGUEIRA - Diadema/SP"
             },
             {
                 "date": "16/09/2020 - 15:11",
-                "status": "Objeto encaminhado ",
+                "type": "DO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "CTE JAGUARE - RUA MERGENTHALER, 568, VILA LEOPOLDINA - SAO PAULO/SP",
                 "destination": "CTE SAUDE - RUA DO BOQUEIRAO, 320, SAUDE - SAO PAULO/SP"
             },
             {
                 "date": "16/09/2020 - 01:53",
-                "status": "Objeto encaminhado ",
+                "type": "RO",
+                "status": 1,
+                "description": "Objeto em trânsito - por favor aguarde",
                 "detail": "",
                 "origin": "AGF XV DE NOVEMBRO - AVENIDA QUINZE DE NOVEMBRO, 1668, CENTRO - ITAPECERICA DA SERRA/SP",
                 "destination": "CTE JAGUARE - RUA MERGENTHALER, 568, VILA LEOPOLDINA - SAO PAULO/SP"
             },
             {
                 "date": "16/09/2020 - 01:36",
-                "status": "Objeto postado",
+                "type": "PO",
+                "status": 1,
+                "description": "Objeto postado",
                 "detail": "",
                 "origin": "AGF XV DE NOVEMBRO - AVENIDA QUINZE DE NOVEMBRO, 1668, CENTRO - ITAPECERICA DA SERRA/SP",
                 "destination": ""
