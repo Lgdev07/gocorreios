@@ -22,7 +22,9 @@ type Object struct {
 	Number      string    `json:"number"`
 	Category    string    `json:"category"`
 	Date        string    `json:"last_date"`
-	Status      string    `json:"last_status"`
+	Type        string    `json:"last_type"`
+	Status      int       `json:"last_status"`
+	Description string    `json:"last_description"`
 	Detail      string    `json:"last_detail"`
 	Origin      string    `json:"last_origin"`
 	Destination string    `json:"last_destination"`
@@ -32,7 +34,9 @@ type Object struct {
 // History represents the array of events related to a Object
 type History struct {
 	Date        string `json:"date"`
-	Status      string `json:"status"`
+	Type        string `json:"type"`
+	Status      int    `json:"status"`
+	Description string `json:"description"`
 	Detail      string `json:"detail"`
 	Origin      string `json:"origin"`
 	Destination string `json:"destination"`
@@ -48,34 +52,38 @@ func Tracking(codes []string) ([]byte, error) {
 		return b, err
 	}
 
-	values := []Object{}
+	var values []Object
 
 	objects := gjson.Get(string(body), "objeto")
 
 	for _, objectValue := range objects.Array() {
-		objeto := Object{}
-		objeto.Number = gjson.Get(objectValue.String(), "numero").String()
-		objeto.Category = gjson.Get(objectValue.String(), "categoria").String()
+		var object Object
+		object.Number = gjson.Get(objectValue.String(), "numero").String()
+		object.Category = gjson.Get(objectValue.String(), "categoria").String()
 
 		events := gjson.Get(objectValue.String(), "evento")
 		for key, event := range events.Array() {
 			if key == 0 {
 
-				objeto.Date = searchDate(event)
-				objeto.Status = gjson.Get(event.String(), "descricao").String()
-				objeto.Detail = gjson.Get(event.String(), "detalhe").String()
-				objeto.Origin = searchOrigin(event)
+				object.Date = searchDate(event)
+				object.Type = gjson.Get(event.String(), "tipo").String()
+				object.Status = int(gjson.Get(event.String(), "status").Int())
+				object.Description = gjson.Get(event.String(), "descricao").String()
+				object.Detail = gjson.Get(event.String(), "detalhe").String()
+				object.Origin = searchOrigin(event)
 
 				destinations := gjson.Get(event.String(), "destino")
 				for _, destination := range destinations.Array() {
-					objeto.Destination = searchDestination(destination)
+					object.Destination = searchDestination(destination)
 				}
 
 			} else {
 				history := History{}
 
 				history.Date = searchDate(event)
-				history.Status = gjson.Get(event.String(), "descricao").String()
+				history.Type = gjson.Get(event.String(), "tipo").String()
+				history.Status = int(gjson.Get(event.String(), "status").Int())
+				history.Description = gjson.Get(event.String(), "descricao").String()
 				history.Detail = gjson.Get(event.String(), "detalhe").String()
 				history.Origin = searchOrigin(event)
 
@@ -84,11 +92,11 @@ func Tracking(codes []string) ([]byte, error) {
 					history.Destination = searchDestination(destination)
 				}
 
-				objeto.History = append(objeto.History, history)
+				object.History = append(object.History, history)
 			}
 
 		}
-		values = append(values, objeto)
+		values = append(values, object)
 	}
 
 	e, err := json.MarshalIndent(values, "", "    ")
