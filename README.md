@@ -28,11 +28,13 @@
 </p>
 
 ## ✅ Features
-- [x] Multiple Object Tracking
-- [ ] CEP
+- [x] [Multiple Object Tracking](#tracking)
+- [x] [CEP](#cep)
 - [ ] Fare Calculation
 
 ## 🚀 How to Use
+
+<a id="tracking"></a>
 ### Tracking
 
 ```go
@@ -48,7 +50,8 @@ import (
 func main() {
 	result, err := gocorreios.Tracking([]string{"OK816158697BR"})
 	if err != nil {
-		log.Fatal(err)
+        fmt.Println("[ERRO]:", err.Error())
+        return
 	}
 	fmt.Println(string(result))
 }
@@ -192,6 +195,40 @@ Expected result:
     }
 ]
 ```
+<a id="cep"></a>
+### CEP
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/Lgdev07/gocorreios"
+)
+
+func main() {
+	res, err := gocorreios.Cep("01311915")
+	if err != nil {
+		fmt.Println("[ERRO]:", err.Error())
+		return
+	}
+
+	fmt.Println(string(res))
+}
+```
+
+Expected result:
+```
+{
+    "cep": "01311915",
+    "state": "SP",
+    "city": "São Paulo",
+    "street": "Avenida Paulista 807",
+    "neighborhood": "Bela Vista"
+}
+```
+
 
 ## 🤔 How to contribute
 
