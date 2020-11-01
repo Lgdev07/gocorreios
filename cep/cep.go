@@ -11,17 +11,18 @@ import (
 // Item represents the cep structure
 type Item struct {
 	Cep          string `json:"cep"`
-	State        string `json:"state"`
-	City         string `json:"city"`
-	Street       string `json:"street"`
-	Neighborhood string `json:"neighborhood"`
+	State        string `json:"uf"`
+	City         string `json:"localidade"`
+	Street       string `json:"logradouro"`
+	Neighborhood string `json:"bairro"`
+	Complement   string `json:"complemento"`
 }
 
 // CepResult returns a well formatted json response of a cep object
 func CepResult(cep string) ([]byte, error) {
 	var b []byte
 
-	item, err := searchCepBrasilAPI(cep)
+	item, err := searchCepViaCEPAPI(cep)
 	if err != nil {
 		return b, err
 	}
@@ -34,9 +35,9 @@ func CepResult(cep string) ([]byte, error) {
 	return e, nil
 }
 
-// SearchCepBrasilAPI makes a request to brasil api and return the body of the response
-func searchCepBrasilAPI(cepString string) (*Item, error) {
-	cepAPIURL := "https://brasilapi.com.br/api/cep/v1/%v"
+// searchCepViaCEPAPI makes a request to via cep api and return the body of the response
+func searchCepViaCEPAPI(cepString string) (*Item, error) {
+	cepAPIURL := "https://viacep.com.br/ws/%v/json/"
 	cepItem := &Item{}
 
 	url := fmt.Sprintf(cepAPIURL, cepString)
@@ -55,6 +56,9 @@ func searchCepBrasilAPI(cepString string) (*Item, error) {
 
 	err = json.Unmarshal(body, cepItem)
 	if err != nil {
+		if err.Error() == "invalid character '<' looking for beginning of value" {
+			return cepItem, errors.New("Please inform CEP in right format: 00000-000 or 00000000")
+		}
 		return cepItem, err
 	}
 

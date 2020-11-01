@@ -208,7 +208,7 @@ import (
 )
 
 func main() {
-	res, err := gocorreios.Cep("01311915")
+	res, err := gocorreios.Cep("04029000")
 	if err != nil {
 		fmt.Println("[ERRO]:", err.Error())
 		return
@@ -221,11 +221,12 @@ func main() {
 Expected result:
 ```
 {
-    "cep": "01311915",
-    "state": "SP",
-    "city": "São Paulo",
-    "street": "Avenida Paulista 807",
-    "neighborhood": "Bela Vista"
+    "cep": "04029-000",
+    "uf": "SP",
+    "localidade": "São Paulo",
+    "logradouro": "Avenida Ibirapuera",
+    "bairro": "Indianópolis",
+    "complemento": "até 1731 - lado ímpar"
 }
 ```
 

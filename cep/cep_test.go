@@ -8,12 +8,11 @@ import (
 )
 
 const (
-	cepNumber          string = "01311915"
-	cepNotFoundMessage string = "Invalid CEP"
+	cepNumber string = "01311-915"
 )
 
 func TestSearchCepExists(t *testing.T) {
-	response, err := searchCepBrasilAPI(cepNumber)
+	response, err := searchCepViaCEPAPI(cepNumber)
 	if err != nil {
 		t.Errorf("Error while getting searchCepBrasilAPI: %v", err)
 	}
@@ -21,7 +20,7 @@ func TestSearchCepExists(t *testing.T) {
 }
 
 func TestSearchCepNotExist(t *testing.T) {
-	_, err := searchCepBrasilAPI("WrongCode")
+	_, err := searchCepViaCEPAPI("WrongCode")
 	assert.Error(t, err)
 }
 
@@ -38,10 +37,10 @@ func TestCepResult(t *testing.T) {
 	}
 
 	assert.Equal(t, responseInterface["cep"], cepNumber)
-	assert.Equal(t, responseInterface["state"], "SP")
-	assert.Equal(t, responseInterface["city"], "São Paulo")
-	assert.Equal(t, responseInterface["street"], "Avenida Paulista 807")
-	assert.Equal(t, responseInterface["neighborhood"], "Bela Vista")
+	assert.Equal(t, responseInterface["uf"], "SP")
+	assert.Equal(t, responseInterface["localidade"], "São Paulo")
+	assert.Equal(t, responseInterface["logradouro"], "Avenida Paulista 807")
+	assert.Equal(t, responseInterface["bairro"], "Bela Vista")
 }
 
 func TestTrackingNotExist(t *testing.T) {
