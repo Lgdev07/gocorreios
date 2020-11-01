@@ -30,7 +30,7 @@
 ## ✅ Features
 - [x] [Multiple Object Tracking](#tracking)
 - [x] [CEP](#cep)
-- [ ] Fare Calculation
+- [x] [Fare Calculation](#fare)
 
 ## 🚀 How to Use
 
@@ -227,6 +227,50 @@ Expected result:
     "logradouro": "Avenida Ibirapuera",
     "bairro": "Indianópolis",
     "complemento": "até 1731 - lado ímpar"
+}
+```
+
+<a id="fare"></a>
+### Fare
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/Lgdev07/gocorreios"
+	"github.com/Lgdev07/gocorreios/fare"
+)
+
+func main() {
+	params := fare.Interface{
+		Service:        "SEDEX", // Avaliable Services: SEDEX, PAC
+		CepOrigin:      "60010100",
+		CepDestination: "04029000",
+		Weight:         30,
+		Length:         20,
+		Height:         20,
+		Width:          20,
+	}
+
+	result, err := gocorreios.Fare(params)
+	if err != nil {
+		fmt.Println("[ERRO]:", err.Error())
+		return
+	}
+	fmt.Println(string(result))
+}
+```
+
+Expected result:
+```
+{
+    "service": "SEDEX",
+    "price": "843,50",
+    "days_for_delivery": "6",
+    "deliver_home": "S",
+    "deliver_saturday": "S"
 }
 ```
 
