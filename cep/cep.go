@@ -9,7 +9,7 @@ import (
 )
 
 // Item represents the cep structure
-type Item struct {
+type item struct {
 	Cep          string `json:"cep"`
 	State        string `json:"uf"`
 	City         string `json:"localidade"`
@@ -36,9 +36,9 @@ func CepResult(cep string) ([]byte, error) {
 }
 
 // searchCepViaCEPAPI makes a request to via cep api and return the body of the response
-func searchCepViaCEPAPI(cepString string) (*Item, error) {
+func searchCepViaCEPAPI(cepString string) (*item, error) {
 	cepAPIURL := "https://viacep.com.br/ws/%v/json/"
-	cepItem := &Item{}
+	cepItem := &item{}
 
 	url := fmt.Sprintf(cepAPIURL, cepString)
 

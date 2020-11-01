@@ -17,7 +17,7 @@ const (
 )
 
 // Object represents the main structure
-type Object struct {
+type object struct {
 	Number      string    `json:"number"`
 	Category    string    `json:"category"`
 	Date        string    `json:"last_date"`
@@ -27,11 +27,11 @@ type Object struct {
 	Detail      string    `json:"last_detail"`
 	Origin      string    `json:"last_origin"`
 	Destination string    `json:"last_destination"`
-	History     []History `json:"history"`
+	History     []history `json:"history"`
 }
 
 // History represents the array of events related to a Object
-type History struct {
+type history struct {
 	Date        string `json:"date"`
 	Type        string `json:"type"`
 	Status      int    `json:"status"`
@@ -121,13 +121,13 @@ func searchCode(_code string) ([]byte, error) {
 }
 
 // getObjects returns the struct with after parse from json
-func getObjects(body []byte) []Object {
-	var values []Object
+func getObjects(body []byte) []object {
+	var values []object
 
 	objects := gjson.Get(string(body), "objeto")
 
 	for _, objectValue := range objects.Array() {
-		var object Object
+		var object object
 		object.Number = gjson.Get(objectValue.String(), "numero").String()
 		object.Category = gjson.Get(objectValue.String(), "categoria").String()
 
@@ -148,7 +148,7 @@ func getObjects(body []byte) []Object {
 				}
 
 			} else {
-				history := History{}
+				history := history{}
 
 				history.Date = searchDate(event)
 				history.Type = gjson.Get(event.String(), "tipo").String()
