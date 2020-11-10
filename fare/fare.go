@@ -34,7 +34,7 @@ type item struct {
 	EntregaDomiciliar string `xml:"Servicos>cServico>EntregaDomiciliar" json:"deliver_home"`
 	EntregaSabado     string `xml:"Servicos>cServico>EntregaSabado" json:"deliver_saturday"`
 	Erro              string `xml:"Servicos>cServico>Erro" json:"-"`
-	MsgErro           string `xml:"Servicos>cServico>MsgErro" json:"-"`
+	MsgErro           string `xml:"Servicos>cServico>MsgErro" json:"obs"`
 }
 
 // FareResult returns a well formatted json response of a fare object
@@ -59,7 +59,7 @@ func FareResult(query Interface) ([]byte, error) {
 		return b, err
 	}
 
-	if item.Erro != "0" {
+	if item.Valor == "0,00" {
 		return b, errors.New(item.MsgErro)
 	}
 
