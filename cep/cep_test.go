@@ -27,7 +27,7 @@ func TestSearchCepNotExist(t *testing.T) {
 func TestCepResult(t *testing.T) {
 	response, err := CepResult(cepNumber)
 	if err != nil {
-		t.Errorf("Error while getting Tracking: %v", err)
+		t.Errorf("Error while getting TestCepResult: %v", err)
 	}
 
 	var responseInterface map[string]interface{}
