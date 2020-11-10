@@ -267,10 +267,11 @@ Expected result:
 ```
 {
     "service": "SEDEX",
-    "price": "843,50",
-    "days_for_delivery": "6",
+    "price": "22,50",
+    "days_for_delivery": "9",
     "deliver_home": "S",
-    "deliver_saturday": "S"
+    "deliver_saturday": "S",
+    "obs": "O CEP de destino está sujeito a condições especiais de entrega  pela  ECT e será realizada com o acréscimo de até 7 (sete) dias úteis ao prazo regular."
 }
 ```
 
