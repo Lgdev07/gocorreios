@@ -2,69 +2,63 @@ package cep
 
 import (
 	"encoding/json"
-	"errors"
-	"fmt"
-	"io/ioutil"
-	"net/http"
-)
+	"sync"
 
-// Item represents the cep structure
-type item struct {
-	Cep          string `json:"cep"`
-	State        string `json:"uf"`
-	City         string `json:"localidade"`
-	Street       string `json:"logradouro"`
-	Neighborhood string `json:"bairro"`
-	Complement   string `json:"complemento"`
-}
+	"github.com/Lgdev07/gocorreios/cep/services"
+)
 
 // CepResult returns a well formatted json response of a cep object
 func CepResult(cep string) ([]byte, error) {
 	var b []byte
 
-	item, err := searchCepViaCEPAPI(cep)
+	result := getFirstResult(cep)
+	if result.Err != nil {
+		return b, result.Err
+	}
+
+	identedCepItem, err := json.MarshalIndent(result.Res, "", "    ")
 	if err != nil {
 		return b, err
 	}
 
-	e, err := json.MarshalIndent(item, "", "    ")
-	if err != nil {
-		return b, err
-	}
-
-	return e, nil
+	return identedCepItem, nil
 }
 
-// searchCepViaCEPAPI makes a request to via cep api and return the body of the response
-func searchCepViaCEPAPI(cepString string) (*item, error) {
-	cepAPIURL := "https://viacep.com.br/ws/%v/json/"
-	cepItem := &item{}
+func getFirstResult(cep string) services.ResultError {
+	resultChan := make(chan services.ResultError)
+	quit := make(chan bool)
+	var err error
 
-	url := fmt.Sprintf(cepAPIURL, cepString)
-
-	resp, err := http.Get(url)
-	if err != nil {
-		return cepItem, err
+	result := services.ResultError{
+		Res: services.Item{},
+		Err: err,
 	}
 
-	defer resp.Body.Close()
+	go runWorkers(cep, resultChan, quit)
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return cepItem, err
-	}
-
-	err = json.Unmarshal(body, cepItem)
-	if err != nil {
-		if err.Error() == "invalid character '<' looking for beginning of value" {
-			return cepItem, errors.New("Please inform CEP in right format: 00000-000 or 00000000")
+	for {
+		select {
+		case v := <-resultChan:
+			if v.Err != nil {
+				result.Err = v.Err
+				continue
+			}
+			return v
+		case <-quit:
+			return result
 		}
-		return cepItem, err
 	}
+}
 
-	if cepItem.Cep == "" {
-		return cepItem, errors.New("Invalid CEP")
-	}
+func runWorkers(cep string, resultChan chan services.ResultError, quit chan bool) {
+	var wg sync.WaitGroup
 
-	return cepItem, nil
+	wg.Add(2)
+
+	go func() { services.SearchCepViaCEPAPI(cep, resultChan); wg.Done() }()
+	go func() { services.SearchBrasilApi(cep, resultChan); wg.Done() }()
+
+	wg.Wait()
+
+	close(quit)
 }
