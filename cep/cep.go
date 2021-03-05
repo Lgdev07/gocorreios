@@ -2,7 +2,6 @@ package cep
 
 import (
 	"encoding/json"
-	"sync"
 
 	"github.com/Lgdev07/gocorreios/cep/services"
 )
@@ -44,21 +43,11 @@ func getFirstResult(cep string) services.ResultError {
 				continue
 			}
 			return v
-		case <-quit:
-			return result
 		}
 	}
 }
 
 func runWorkers(cep string, resultChan chan services.ResultError, quit chan bool) {
-	var wg sync.WaitGroup
-
-	wg.Add(2)
-
-	go func() { services.SearchCepViaCEPAPI(cep, resultChan); wg.Done() }()
-	go func() { services.SearchBrasilApi(cep, resultChan); wg.Done() }()
-
-	wg.Wait()
-
-	close(quit)
+	go func() { services.SearchCepViaCEPAPI(cep, resultChan) }()
+	go func() { services.SearchBrasilApi(cep, resultChan) }()
 }
