@@ -5,7 +5,8 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"net/http"
+
+	"github.com/Lgdev07/gocorreios/http/client"
 )
 
 const (
@@ -46,7 +47,7 @@ func FareResult(query Interface) ([]byte, error) {
 	}
 
 	queryValues := fmt.Sprintf(fareQueryURL, service, query.CepOrigin, query.CepDestination, query.Weight, query.Length, query.Height, query.Width)
-	resp, err := http.Get(fareURL + queryValues)
+	resp, err := client.Client.Get(fareURL + queryValues)
 	if err != nil {
 		return b, err
 	}

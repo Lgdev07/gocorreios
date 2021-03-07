@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/Lgdev07/gocorreios/http/client"
 	"github.com/tidwall/gjson"
 )
 
@@ -98,7 +99,6 @@ func searchCode(_code string) ([]byte, error) {
 	var b []byte
 
 	trackingData := fmt.Sprintf(trackingData, _code)
-	client := &http.Client{}
 
 	r, err := http.NewRequest("POST", trackingAPIURL, bytes.NewBufferString(trackingData))
 	if err != nil {
@@ -107,17 +107,17 @@ func searchCode(_code string) ([]byte, error) {
 
 	r.Header.Add("Content-Type", "application/xml")
 
-	resp, err := client.Do(r)
+	resp, err := client.Client.Do(r)
 	if err != nil {
 		return b, err
 	}
 
-	_body, err := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return b, err
 	}
 
-	return _body, nil
+	return body, nil
 }
 
 // getObjects returns the struct with after parse from json

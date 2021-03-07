@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/Lgdev07/gocorreios/cep/mocks"
+	"github.com/Lgdev07/gocorreios/http/mocks"
 	"github.com/tj/assert"
 )
 

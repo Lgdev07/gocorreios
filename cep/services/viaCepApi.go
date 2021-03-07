@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/Lgdev07/gocorreios/cep/client"
+	"github.com/Lgdev07/gocorreios/http/client"
 )
 
 // SearchCepViaCEPAPI makes a request to via cep api and return the body of the response
