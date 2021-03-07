@@ -2,10 +2,11 @@ package cep
 
 import (
 	"encoding/json"
-	"sync"
 
 	"github.com/Lgdev07/gocorreios/cep/services"
 )
+
+var servicesList []string = []string{"brasilApi", "viaCepApi"}
 
 // CepResult returns a well formatted json response of a cep object
 func CepResult(cep string) ([]byte, error) {
@@ -25,40 +26,42 @@ func CepResult(cep string) ([]byte, error) {
 }
 
 func getFirstResult(cep string) services.ResultError {
+	var errorCount int
 	resultChan := make(chan services.ResultError)
-	quit := make(chan bool)
-	var err error
-
 	result := services.ResultError{
 		Res: services.Item{},
-		Err: err,
 	}
 
-	go runWorkers(cep, resultChan, quit)
+	go runServices(cep, resultChan)
 
 	for {
 		select {
 		case v := <-resultChan:
 			if v.Err != nil {
-				result.Err = v.Err
+				if returnError(&errorCount) {
+					result.Err = v.Err
+					return result
+				}
 				continue
 			}
 			return v
-		case <-quit:
-			return result
 		}
 	}
+
 }
 
-func runWorkers(cep string, resultChan chan services.ResultError, quit chan bool) {
-	var wg sync.WaitGroup
+func returnError(errorCount *int) bool {
+	var lenServices int = len(servicesList)
 
-	wg.Add(2)
+	*errorCount++
+	if *errorCount == lenServices {
+		return true
+	}
 
-	go func() { services.SearchCepViaCEPAPI(cep, resultChan); wg.Done() }()
-	go func() { services.SearchBrasilApi(cep, resultChan); wg.Done() }()
+	return false
+}
 
-	wg.Wait()
-
-	close(quit)
+func runServices(cep string, resultChan chan services.ResultError) {
+	go func() { services.SearchCepViaCEPAPI(cep, resultChan) }()
+	go func() { services.SearchBrasilApi(cep, resultChan) }()
 }
