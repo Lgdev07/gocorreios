@@ -26,7 +26,7 @@ func TestSearchCodeExists(t *testing.T) {
 		}, nil
 	}
 
-	response, err := searchCode(codeNumber)
+	response, err := getBody(codeNumber)
 	if err != nil {
 		t.Errorf("Error while getting getBody: %v", err)
 	}
@@ -56,7 +56,7 @@ func TestSearchCodeNotExist(t *testing.T) {
 		}, nil
 	}
 
-	response, err := searchCode("WrongCode")
+	response, err := getBody("WrongCode")
 	if err != nil {
 		t.Errorf("Error while getting getBody: %v", err)
 	}
@@ -140,5 +140,5 @@ func TestTrackingNotExist(t *testing.T) {
 	}
 
 	assert.Equal(t, len(responseInterface), 1)
-	assert.Equal(t, responseInterface[0]["category"], codeNotFoundMessage)
+	assert.Equal(t, responseInterface[0]["error"], codeNotFoundMessage)
 }
