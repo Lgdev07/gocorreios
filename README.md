@@ -73,6 +73,7 @@ Expected result:
         "last_detail": "",
         "last_origin": "CDD CARIACICA - RUA SAO FRANCISCO, 53, SAO FRANCISCO - VIANA/ES",
         "last_destination": "",
+        "error": "",
         "history": [
             {
                 "date": "05/10/2020 - 06:37",
