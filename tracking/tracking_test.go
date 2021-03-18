@@ -28,7 +28,7 @@ func TestSearchCodeExists(t *testing.T) {
 
 	response, err := searchCode(codeNumber)
 	if err != nil {
-		t.Errorf("Error while getting searchCode: %v", err)
+		t.Errorf("Error while getting getBody: %v", err)
 	}
 	assert.Contains(t, string(response), codeNumber)
 }
@@ -58,7 +58,7 @@ func TestSearchCodeNotExist(t *testing.T) {
 
 	response, err := searchCode("WrongCode")
 	if err != nil {
-		t.Errorf("Error while getting searchCode: %v", err)
+		t.Errorf("Error while getting getBody: %v", err)
 	}
 	assert.Contains(t, string(response), codeNotFoundMessage)
 }
