@@ -53,7 +53,6 @@ func SearchBrasilApi(cepString string, resultChan chan ResultError) {
 	}
 
 	resultChan <- ResultError{Res: *cepItem, Err: nil}
-	return
 }
 
 func getFirstErrorMessage(errorInterface interface{}) error {

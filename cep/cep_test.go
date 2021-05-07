@@ -11,10 +11,6 @@ import (
 	"github.com/tj/assert"
 )
 
-const (
-	cepNumber string = "01311-915"
-)
-
 func TestCepResult(t *testing.T) {
 	jsonResponse := `{
 		"cep": "099811380",

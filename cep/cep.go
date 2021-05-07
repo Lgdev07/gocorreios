@@ -35,30 +35,23 @@ func getFirstResult(cep string) services.ResultError {
 	go runServices(cep, resultChan)
 
 	for {
-		select {
-		case v := <-resultChan:
-			if v.Err != nil {
-				if returnError(&errorCount) {
-					result.Err = v.Err
-					return result
-				}
-				continue
+		v := <-resultChan
+		if v.Err != nil {
+			if returnError(&errorCount) {
+				result.Err = v.Err
+				return result
 			}
-			return v
+			continue
 		}
+		return v
 	}
-
 }
 
 func returnError(errorCount *int) bool {
 	var lenServices int = len(servicesList)
 
 	*errorCount++
-	if *errorCount == lenServices {
-		return true
-	}
-
-	return false
+	return *errorCount == lenServices
 }
 
 func runServices(cep string, resultChan chan services.ResultError) {

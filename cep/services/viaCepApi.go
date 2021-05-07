@@ -34,7 +34,7 @@ func SearchCepViaCEPAPI(cepString string, resultChan chan ResultError) {
 	if err != nil {
 		if err.Error() == "invalid character '<' looking for beginning of value" {
 			resultChan <- ResultError{Res: *cepItem, Err: errors.New(
-				"Please inform CEP in right format: 00000-000 or 00000000")}
+				"please inform CEP in right format: 00000-000 or 00000000")}
 			return
 		}
 		resultChan <- ResultError{Res: *cepItem, Err: err}
@@ -42,10 +42,9 @@ func SearchCepViaCEPAPI(cepString string, resultChan chan ResultError) {
 	}
 
 	if cepItem.Cep == "" {
-		resultChan <- ResultError{Res: *cepItem, Err: errors.New("Invalid CEP")}
+		resultChan <- ResultError{Res: *cepItem, Err: errors.New("invalid CEP")}
 		return
 	}
 
 	resultChan <- ResultError{Res: *cepItem, Err: nil}
-	return
 }
